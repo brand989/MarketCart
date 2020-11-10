@@ -4,8 +4,18 @@ const fs = require('fs')
 const server = http.createServer((req, res) => {
 
   console.log(req.url)
-  const body = fs.readFileSync(`./public/index.html`)
+
+  let body
+  
+  try {
+    body = fs.readFileSync(`./public${req.url}`)
+  } catch (err) {
+    body = fs.readFileSync('./public/index.html')
+  }
+
+  
   res.end(body)
+
 })
 
 server.listen(process.env.PORT || 4000)
