@@ -1,9 +1,27 @@
-* {
-    padding: 0;
-    margin: 0;
-  }
-  
-  header {
-    background: #000;
-    color: #fff;
-  }
+header {
+   min-height: 100px;
+   background-color: blueviolet;
+}
+
+.logo {
+    color: white;
+    padding: 30px;
+    font-size: 40px;
+}
+
+main h1 {
+    padding: 30px;
+}
+
+.product-list {
+    list-style-type: none; 
+}
+
+.product-list-element img {
+    max-height: 50px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
