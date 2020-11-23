@@ -246,7 +246,7 @@
 
            constructor(items) {
                super(items)
-               let goodsPromise = this.fetchGoods('http://localhost:4000/database.json')
+               let goodsPromise = this.fetchGoods('/database.json')
                goodsPromise.then(() => {
                    this.render()
                })
@@ -306,7 +306,7 @@
                 });
 
                 promise.then(result => {
-                            let goodsPromise = this.fetchGoods(`http://localhost:4000/database1.json`)
+                            let goodsPromise = this.fetchGoods(`/database1.json`)
                             goodsPromise.then(() => {
                                 this.render()
                             })
