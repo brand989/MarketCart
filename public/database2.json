@@ -1,6 +1,6 @@
 {
     "data": [
-      { "name": "shorts", "price": 90 },
-      { "name": "sneakers", "price": 1500 }
+      { "name": "Heat", "price": 10 },
+      { "name": "Pants", "price": 120 }
     ]
   }
