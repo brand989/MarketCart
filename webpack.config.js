@@ -1,0 +1,36 @@
+const path = require('path')
+
+module.exports = {
+    entry: './src/shop.js',
+    output: {
+        path: path.resolve(__dirname, 'public/js'),
+        filename: 'shop.js'
+
+    },
+    module: {
+        rules:[
+            {
+                test: /\.js$/,
+                use: [
+                    { loader: 'babel-loader'},
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {loader: 'style-loader'},
+                    {loader: 'css-loader'},
+                ],
+            },
+            // {
+            //     test: /\.sass$/,
+            //     use: [
+            //         {loader: 'style-loader'},
+            //         {loader: 'sass-loader'},
+            //         {loader: 'css-loader'},
+                    
+            //     ],
+            // }
+        ]
+    }
+}
