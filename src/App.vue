@@ -2,38 +2,64 @@
   <div>
     <header :class="[$style.header]">
      <div :class="[$style.logo]"> My shop </div>
-      <div :class="[$style.cart]"><!-- <Cart /> -->Корзина</div>
+    <div :class="[$style.cart]">
+         <Cart />
+     
+    </div>
+      <div v-for="id in getItemsInCart" :key="id">  {{ id }} </div>
     </header>
     <main>
+  
       <h1>Товары</h1>
-      <div>
-      <GoodList :items="items"/>
+      <Item 
+        v-for="id in getItemsOnPage"
+        :key="id"
+        :id="id"
+      />
+      <div v-if="coounterPage < 4">
+        <Button @myEvent="moreItems">Eще товары</Button>
       </div>
+      
     </main>
   </div>
 </template>
 
 <script>
 
-import GoodList from "./GoodList.vue";
+import Item from "./components/Item.vue"
+import Cart from "./components/Cart.vue"
+import { mapGetters, mapActions } from 'vuex'
+import Button from './components/Button.vue'
 
 export default {
   components: {
-     GoodList 
+     Item, Cart, Button,
   },
 
   data() {
     return {
-      items: [
-        { name: "Shirt", price: 150 },
-        { name: "Socks", price: 15 },
-        { name: "Jacket", price: 50 },
-        { name: "Shoes", price: 1500 },
-      ],
+      items: [],
+      coounterPage: 2
     };
   },
-  methods: {},
-};
+  methods: {
+    ...mapActions('goods', [
+      'requestData',
+    ]),
+    moreItems(){
+      this.requestData(this.coounterPage)
+      this.coounterPage++
+    }
+  },
+  computed: {
+      ...mapGetters('goods', [
+          'getItemsOnPage',  
+        ])
+  },
+  mounted() {
+    this.requestData(1)
+  } 
+}
 </script>
 
 <style module>

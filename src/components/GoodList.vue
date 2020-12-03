@@ -1,13 +1,12 @@
 <template>
   <div>
-      <div>
       <Item
         v-for="(good, index) in  items "
         :key="index"
+        :id="good.id"
         :name="good.name"
         :price="good.price"
       />
-      </div>
   </div>
 </template>
 
