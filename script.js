@@ -4,3 +4,4 @@ const fs = require('fs')
 const text = fs.readFileSync('script.js', 'utf8')
 // выводим переменную text в консоль
 console.log(text)
+
