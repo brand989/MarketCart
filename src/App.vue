@@ -16,10 +16,11 @@
         :key="id"
         :id="id"
       />
-      <div v-if="coounterPage < 4">
+      <div>
         <Button @myEvent="moreItems">Eще товары</Button>
       </div>
       
+      <Form />
     </main>
   </div>
 </template>
@@ -30,10 +31,11 @@ import Item from "./components/Item.vue"
 import Cart from "./components/Cart.vue"
 import { mapGetters, mapActions } from 'vuex'
 import Button from './components/Button.vue'
+import Form from "./components/Form.vue"
 
 export default {
   components: {
-     Item, Cart, Button,
+     Item, Cart, Button, Form,
   },
 
   data() {
@@ -44,20 +46,24 @@ export default {
   },
   methods: {
     ...mapActions('goods', [
-      'requestData',
+      'requestData', 'getItemsOutCart',
     ]),
     moreItems(){
       this.requestData(this.coounterPage)
-      this.coounterPage++
+      if(this.coounterPage < 3) {
+        this.coounterPage++
+      }
+      
     }
   },
   computed: {
       ...mapGetters('goods', [
-          'getItemsOnPage',  
+          'getItemsOnPage',  'getItemsInCartForServer'
         ])
   },
   mounted() {
     this.requestData(1)
+    this.getItemsOutCart()
   } 
 }
 </script>

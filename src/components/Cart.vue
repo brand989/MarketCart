@@ -5,9 +5,9 @@
           <div v-if="!getItemsInCart.length">
             Список Пуст
           </div>  
-          <div v-for="good in getItemsInCart" :key="good">
-            {{ getData[good.id].name }} x {{ getData[good.id].price }} x {{ good.count }}
-            <Button @myEvent="onDeletInCartClick(good.id)">-</Button>
+          
+          <div v-for="good in getItemsInCartForServer" :key="good">
+              {{ good.name }} x {{ good.price }}
           </div>
         </div> 
   </div>    
@@ -28,11 +28,12 @@ export default {
   },
   methods: {
     ...mapActions('goods', [
-          'deleteInCart',
+          'deleteInCart'
         ]),
 
     onCartClick() {
       this.opened = !this.opened
+
     },
 
     onDeletInCartClick(good){
@@ -45,7 +46,7 @@ export default {
       ...mapGetters('goods', [
           'getData',
           'getItemsInCart',
-
+          'getItemsInCartForServer',
         ])
   } 
 }

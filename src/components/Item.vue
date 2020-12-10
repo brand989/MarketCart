@@ -28,10 +28,12 @@ export default {
     },
     methods: {
       ...mapActions('goods', [
-          'addInCart',
+          'addInCart', 'sendCartToServer','getItemsOutCart',
         ]),
       onBuyClick() {
         this.addInCart(this.id)
+        this.sendCartToServer(this.currentItem)
+        this.getItemsOutCart()
       }
     }  
 }

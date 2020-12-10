@@ -1,4 +1,1 @@
-{
-  "5": {"id": 5, "name": "shorts", "price": 90 },
-  "6": {"id": 6, "name": "sneakers", "price": 1500 }
-}
+{"5":{"id":5,"name":"shorts","price":90},"6":{"id":6,"name":"sneakers","price":1500},"13":{"name":"bas","price":"123","id":13},"14":{"name":"туфли","price":"542","id":14},"15":{"name":"Ботинки","price":"458","id":15}}

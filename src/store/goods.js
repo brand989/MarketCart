@@ -2,27 +2,29 @@ const state = {
     data: {},
     itemsOnPage: [],
     itemsInCart: [],
+    itemsInCartForServer: [],
 }
   
 const getters = {
     getData: state => state.data,
-    getItemsOnPage: state =>state.itemsOnPage,
-    getItemsInCart: state =>state.itemsInCart,
+    getItemsOnPage: state => state.itemsOnPage,
+    getItemsInCart: state => state.itemsInCart,
+    getItemsInCartForServer: state => state.itemsInCartForServer,
 }
   
 const actions = {
-    requestData({ commit },page) {
+    requestData({ commit }, page) {
         if(!page){
             return
         }
 
-        fetch(`/database/database${page}.json`) 
+        fetch(`/itemslist/${page}`, {
+            method: 'GET'
+        }) 
         .then(res => {
-            console.log(res)
             return res.json()
         })
         .then(data => {
-            console.log(data)
             commit('setData', data)
         })
     },
@@ -32,16 +34,58 @@ const actions = {
     }, 
     deleteInCart({state, commit}, id) {
         commit('deleteInCart', id)
+    }, 
+    addItem( { state, commit }, data ) {
+
+        fetch('/itemslist/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then ( res => {
+            console.log(res)
+        })
+
+    },
+    sendCartToServer( { state, commit }, data){
+        console.log( data )
+        fetch('/cartlist/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then ( res => {
+            console.log(res)
+        })
+    },
+    getItemsOutCart({ state, commit }) {
+       
+        fetch('/cartlist/', {
+            method: 'GET'
+        }) 
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            commit('setInCart', data)
+            
+        })
     }
 
 }
   
 const mutations = {
     setData( state, newData) {
-        for(let i in newData){
-            state.data[i] = newData[i]
-        }
-        state.itemsOnPage.push(...Object.keys(newData).slice(0,2))
+        
+        state.data = {...state.data, ...newData} 
+        state.itemsOnPage.push(...Object.keys(newData))
+    },
+    setInCart(state, newData){
+        state.itemsInCartForServer = newData
     },
     addInCart( state, id ){
 
