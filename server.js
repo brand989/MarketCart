@@ -14,7 +14,7 @@
 //   }
 
   
-//   res.end(body)
+//   res.send(body)
 
 // })
 
@@ -27,13 +27,16 @@ const express = require('express')
 const fs = require('fs') 
 const app = express()
 const bodyParser = require('body-parser')
+let port = process.env.PORT || 2000
 
 app.use(express.static('./public'))
 app.use(bodyParser.json())
 
-app.listen('8080', () => {
+app.listen(port , () => {
   console.log("Server started")
 })
+
+
 
 app.get('/itemslist/:page', (req, res) => {
   const number = req.params.page
