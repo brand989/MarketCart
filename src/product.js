@@ -1,5 +1,5 @@
 import Cart from './cart.js'
-
+import Button from './button.js'
 
 export default class Product {
 
@@ -24,7 +24,8 @@ export default class Product {
         let item = document.createElement('li')
         item.classList.add('product-list-element')
         item.innerHTML = `
-        <span>${name} ${price} руб. </span>
+        <span>${name} </span> <br/>
+        <span> ${price} руб. </span>
     `
         item.appendChild(this.getAddInCartBtn())
 
@@ -40,13 +41,14 @@ export default class Product {
             count
         } = this
 
+
         let item = document.createElement('div')
-        item.classList.add('cart-list')
+        item.classList.add('cart-list-item')
         item.innerHTML = `
-        <span>${name} ${price} руб.${count}шт. </span>
+        <span>${name} ${price}руб.  ${count}шт. </span>
         `
         item.appendChild(this.getMinusCartBtn())
-        item.appendChild(this.getAddInCartBtn())
+        item.appendChild(this.getPlusInCartBtn())
         item.appendChild(this.getDeleteCartBtn())
 
 
@@ -55,19 +57,32 @@ export default class Product {
     }
 
 
-    getAddInCartBtn() {
-        const btn = document.createElement('button')
-        btn.classList.add('btn')
+    getPlusInCartBtn() {
 
-        btn.innerHTML = '+'
-
-        btn.addEventListener('click', () => {
+        const  addToCart = () => {
             const userCart = new Cart()
             userCart.add(this)
-        })
+        }
 
-        return btn
+        const btn = new Button ( '+', addToCart, 'button-cart')
+
+        return btn.render()
     }
+
+
+
+    getAddInCartBtn() {
+
+        const  addToCart = () => {
+            const userCart = new Cart()
+            userCart.add(this)
+        }
+
+        const btn = new Button ( 'В корзину', addToCart)
+
+        return btn.render()
+    }
+
 
     inc() {
         this.count++
@@ -77,31 +92,33 @@ export default class Product {
         this.count--
     }
 
+
+
     getMinusCartBtn() {
-        const btn = document.createElement('button')
-        btn.classList.add('btn')
-        btn.innerHTML = '-'
 
-
-        btn.addEventListener('click', () => {
+        const  minusToCart = () => {
             const userCart = new Cart()
             userCart.remove(this)
-        })
+        }
 
-        return btn
+        const btn = new Button ( '-', minusToCart, 'button-cart')
+
+        return btn.render()
 
     }
 
-    getDeleteCartBtn() {
-        const btn = document.createElement('button')
-        btn.classList.add('btn')
-        btn.innerHTML = 'Удалить из корзины'
 
-        btn.addEventListener('click', () => {
+
+    getDeleteCartBtn() {
+
+        const  deleteToCart = () => {
             const userCart = new Cart()
             userCart.delete(this)
-        })
+        }
 
-        return btn
+        const btn = new Button ( 'Удалить товар', deleteToCart, 'button-cart-delete')
+
+        return btn.render()
+
     }
 }

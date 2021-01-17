@@ -1,6 +1,6 @@
 import List from './list.js'
 import Product from './product.js'
-
+import Button from './button.js'
 
 
 export default class ProductList extends List {
@@ -15,8 +15,6 @@ export default class ProductList extends List {
         this.initShowMoreBtn()
 
     }
-
-
 
     fetchGoods() {
 
@@ -57,29 +55,33 @@ export default class ProductList extends List {
 
 
     initShowMoreBtn() {
+
         const placeToRender = document.querySelector('.showmore')
-        const btn = document.createElement('button')
-        btn.classList.add('btn')
-        btn.innerHTML = 'Еще товары'
 
+        const  moreGoods = () => {
 
-        btn.addEventListener('click', () => {
             let goodsPromise = this.fetchGoods()
             goodsPromise.then(() => {
                 this.render()
             })
-
-        },
             error => {
                 alert("упс" + error);
-            })
+            }
 
-        placeToRender.appendChild(btn)
+        }
+
+        const btn = new Button ( 'Еще товары', moreGoods)
+
+        placeToRender.appendChild(btn.render())
+
     }
 
     hideShowMoreBtn() {
         const placeToRender = document.querySelector('.showmore')
-        placeToRender.remove()
+        placeToRender.innerHTML = ''
+        const text = document.createElement('p')
+        text.innerHTML = 'Товаров больше нет'
+        placeToRender.appendChild(text)
     }
 
 }
