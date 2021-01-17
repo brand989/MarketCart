@@ -18,6 +18,6 @@ const server = http.createServer((req, res) => {
 
 })
 
-server.listen(process.env.PORT || 4000)
+server.listen(process.env.PORT || 8080)
 // Выводим в консоль, что сервер стартовал
 console.log('Server started')
